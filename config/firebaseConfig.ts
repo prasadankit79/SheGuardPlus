@@ -1,5 +1,8 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
+// --- THIS IS THE FIX ---
+// We will use 'browserLocalPersistence' which is available in the main 'auth' module.
+import { initializeAuth, browserLocalPersistence } from 'firebase/auth';
+// -----------------------
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { getFirestore } from 'firebase/firestore';
 
@@ -12,18 +15,16 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-// --- THIS IS THE FIX ---
-// Check if a Firebase app has already been initialized
 let app;
 if (getApps().length === 0) {
   app = initializeApp(firebaseConfig);
 } else {
-  app = getApp(); // Use the existing app if it's already initialized
+  app = getApp();
 }
-// -----------------------
 
+// This is the new, more compatible way to initialize Auth with persistence
 const auth = initializeAuth(app, {
-  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+  persistence: browserLocalPersistence,
 });
 
 const db = getFirestore(app);
