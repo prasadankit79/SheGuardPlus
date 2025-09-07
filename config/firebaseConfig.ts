@@ -2,6 +2,8 @@ import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, initializeAuth, getReactNativePersistence } from 'firebase/auth';
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { getFirestore } from 'firebase/firestore';
+// 1. Import getStorage from firebase/storage
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
@@ -12,15 +14,13 @@ const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
 
-// --- THIS IS THE FIX ---
-// Check if a Firebase app has already been initialized
+// Your existing logic for initializing the app is perfect
 let app;
 if (getApps().length === 0) {
   app = initializeApp(firebaseConfig);
 } else {
-  app = getApp(); // Use the existing app if it's already initialized
+  app = getApp();
 }
-// -----------------------
 
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
@@ -28,4 +28,8 @@ const auth = initializeAuth(app, {
 
 const db = getFirestore(app);
 
-export { auth, db };
+// 2. Initialize storage using the same app instance
+const storage = getStorage(app);
+
+// 3. Export storage along with auth and db
+export { auth, db, storage };

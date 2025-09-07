@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "women-safety-app",
+    "name": "SheGuard+",
     "slug": "women-safety-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,7 +16,12 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "permissions": [
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
+      ],
+      "package": "com.sakti05.womensafetyapp"
     },
     "web": {
       "bundler": "metro",
@@ -39,10 +44,17 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location to send alerts and share your live location with emergency contacts."
         }
-      ]
+      ],
+      "expo-audio"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "4000716f-938c-4e28-ab85-184649d6242e"
+      }
     }
   }
 }

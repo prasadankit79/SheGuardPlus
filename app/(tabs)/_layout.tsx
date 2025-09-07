@@ -1,30 +1,28 @@
 import React from 'react';
 import { Tabs } from 'expo-router';
-import { FontAwesome5, AntDesign } from '@expo/vector-icons';
-import { DrawerToggleButton } from '@react-navigation/drawer';
+
+// We have removed the old icon imports as they are no longer needed.
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: '#8E44AD',
-        headerShown: false, // Important: This hides the second header
+        headerShown: false,
+        // This style correctly hides the bottom tab bar.
+        tabBarStyle: { display: 'none' },
       }}
     >
+      {/* This layout should ONLY define the screens that exist inside the (tabs) folder. */}
       <Tabs.Screen
-        name="index"
+        name="index" // This is your Home screen (app/(tabs)/index.tsx)
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome5 name="home" size={24} color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="common-problems"
-        options={{
-          title: 'FAQs',
-          tabBarIcon: ({ color }) => <AntDesign name="questioncircle" size={24} color={color} />,
-        }}
-      />
+      
+      {/* The <Tabs.Screen> for "common-problems" and "explore" have been REMOVED from this file
+        because their actual files are now in the main app/ folder.
+      */}
     </Tabs>
   );
 }
